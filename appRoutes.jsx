@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import HomePage from './src/components/homePage/homePage';
 import Layout from './src/layout/layout';
-import MyFavorites from './src/components/myFavorites/myFavorites';
+import MyFavoritesList from './src/components/myFavorites/myFavoritesList';
 
 
 export default function AppRoutes() {
@@ -15,8 +15,8 @@ export default function AppRoutes() {
             <Routes>
                 <Route path='/' element={<Layout/>} >
 
-                    <Route index element={<HomePage />} />
-                    <Route path='/favorites' element={<MyFavorites/>} />
+                    <Route path='/' element={<HomePage />} />
+                    <Route path='/favorites' element={<MyFavoritesList/>} />
 
                 </Route>
                 

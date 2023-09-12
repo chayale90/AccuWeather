@@ -1,36 +1,51 @@
 
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { toast } from "react-toastify"
+import { useSelector } from "react-redux";
 // project imports
 import WeatherInput from "./weatherInput";
 import GeneralInfo from "./generalInfo";
 import WeatherInfo from "./WeatherInfo";
 import { API_KEY } from '../../services/apiService';
+import DaysList from "./daysList/daysList";
+import { theme } from '../../services/theme'
+import { useParams } from "react-router-dom";
+
 
 const AppWeather = () => {
+    const params = useParams();
+    // console.log(params[countryName]);
     const [autocompleteObj, setAutocompleteObj] = useState({});
-    const [locationKey, setLocationKey] = useState(Number);
-    const [daysArr, setDaysArr] = useState([]);
+    const [locationKey, setLocationKey] = useState("");
+
+    //darkMode
+    const { darkMode } = useSelector(myStore => myStore.featuresSlice);
+    const modeBackground = useMemo(() => {
+        if (darkMode)
+            return theme.palette.darkMode.main
+        return theme.palette.success.main
+    }, [darkMode]);
 
     useEffect(() => {
-        doApi('tel aviv');
+        // if (params[countryName]) {
+        //     doApi(params[countryName])
+        // }
+            doApi('tel aviv')
     }, [])
 
     const doApi = async (cityName) => {
         try {
             let url_Autocomplete = `http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=${API_KEY}&q=${cityName}`;
             let resp = await axios.get(url_Autocomplete);
+            if (resp.data == 0) {
+                toast.error("Country/city name unknown or the service down")
+                return;
+            }
             setAutocompleteObj(resp.data[0]);
-            // console.log(resp.data[0]);
+            console.log(resp.data[0]);
             // console.log({ key: resp.data[0].Key });
             setLocationKey(resp.data[0].Key)
-
-
-            // let url_5days = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/213225?apikey=${API_KEY}`;
-            // let resp3 = await axios.get(url_5days);
-            // setDaysArr(resp3.data.DailyForecasts)
-            // console.log(resp3.data.DailyForecasts)
         }
         catch (err) {
             console.log("error", err);
@@ -39,23 +54,21 @@ const AppWeather = () => {
     }
 
     return (
-        <div>
+        <div >
             <WeatherInput doApi={doApi} />
-            <div className="details p-4 p-md-5">
-                <div className="d-flex justift-content-between ">
+            <div style={{ backgroundColor: modeBackground, minHeight: "400px" }} className="details p-4">
+                <div>
                     <GeneralInfo autocompleteObj={autocompleteObj} />
-                    {/* <h6 className="addFavorite">Add to favorite</h6> */}
                 </div>
 
-
                 {(locationKey) ?
-                    <WeatherInfo locationKey={locationKey} />
+                    <>
+                        <WeatherInfo locationKey={locationKey} />
+                        <DaysList locationKey={locationKey} />
+                    </>
                     : <div>Loading</div>
                 }
-
-
             </div>
-
         </div>
     )
 }

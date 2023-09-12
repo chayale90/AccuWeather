@@ -5,6 +5,7 @@ import Switch from '@mui/material/Switch';
 // project imports
 import { API_KEY } from '../../services/apiService';
 
+
 export default function WeatherInfo({ locationKey }) {
 
   const [currentWeather, setCurrentWeather] = useState({});
@@ -12,13 +13,13 @@ export default function WeatherInfo({ locationKey }) {
 
   console.log(locationKey)
   console.log(currentWeather)
-  console.log({ isCelsius });
-  
+  // console.log({ isCelsius });
+
   useEffect(() => {
     if (locationKey) {
       doApiCurrentWeather()
     }
-  }, [])
+  }, [locationKey])
 
   const doApiCurrentWeather = async () => {
     try {
@@ -38,7 +39,13 @@ export default function WeatherInfo({ locationKey }) {
   };
 
   return (
-    <div>
+    <div className='mt-2'>
+      {
+        isCelsius ?
+          <h4> {currentWeather.Temperature?.Metric?.Value}° {currentWeather.Temperature?.Metric?.Unit} </h4>
+          :
+          <h4> {currentWeather.Temperature?.Imperial?.Value}° {currentWeather.Temperature?.Imperial?.Unit}  </h4>
+      }
       <Switch
         checked={isCelsius}
         onChange={toggleUnit}
@@ -46,12 +53,6 @@ export default function WeatherInfo({ locationKey }) {
         inputProps={{ 'aria-label': 'toggle temperature unit' }}
       />
 
-      {
-        isCelsius ?
-          <h4> {currentWeather.Temperature?.Metric?.Value}° {currentWeather.Temperature?.Metric?.Unit} </h4>
-          : 
-          <h4> {currentWeather.Temperature?.Imperial?.Value}° {currentWeather.Temperature?.Imperial?.Unit}  </h4>
-      }
       <h2 className='text-center display-5 text-primary'>{currentWeather?.WeatherText}</h2>
 
     </div >

@@ -9,7 +9,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
@@ -57,12 +57,8 @@ const Header = () => {
     const { darkMode } = useSelector(myStore => myStore.featuresSlice);
 
     const ClickLogout = () => {
-        //do logout
         nav("/")
         toast.success("Have a good day!")
-        //delete token
-        //delete user from redux
-        //dispatch(resetUser())
     };
     return (
         <ThemeProvider theme={theme}>
@@ -70,9 +66,7 @@ const Header = () => {
                 <Container maxWidth="lg" >
                     <div className='d-flex justify-content-between align-items-center' >
                         <div className='d-none d-md-flex'>
-                            {/* <Link to="/"> */}
                                 <Logo />
-                            {/* </Link> */}
                         </div>
 
                         <div className='d-flex d-md-none '>
@@ -159,7 +153,7 @@ const Header = () => {
                             style={{ color: darkMode == true ? '#8ECDDD' : 'yellow' }}
                         >
                             {darkMode == false ? "Light" : 'Dark'}
-                            <IconButton sx={{ ml: 1 }} onClick={() => { dispatch(changeDarkMode()) }} color={darkMode == true ? "primary" : "inherit"}>
+                            <IconButton onClick={() => { dispatch(changeDarkMode()) }} color={darkMode == true ? "primary" : "inherit"}>
                                 {darkMode == true ? <Brightness7Icon /> : <Brightness4Icon />}
                             </IconButton>
                         </div>
@@ -188,7 +182,7 @@ const Header = () => {
                             >
                                 <div className='text-center px-3 d-flex align-items-center d-md-none'>
                                     {darkMode == false ? "Light" : 'Dark'}
-                                    <IconButton sx={{ ml: 1 }} onClick={() => { dispatch(changeDarkMode()) }} color="inherit">
+                                    <IconButton onClick={() => { dispatch(changeDarkMode()) }} color="inherit">
                                         {darkMode == true ? <Brightness7Icon /> : <Brightness4Icon />}
                                     </IconButton>
                                 </div>

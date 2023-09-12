@@ -3,10 +3,8 @@ import AppWeather from './appWeather'
 
 const HomePage = () => {
   return (
-    <div className="container">
-
+    <div style={{minHeight:"100vh"}} className="container">
       <AppWeather />
-
     </div>
   )
 }

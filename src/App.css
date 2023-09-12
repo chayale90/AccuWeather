@@ -1,12 +1,15 @@
 body {
     font-family: 'Rubik', sans-serif;
-    /* overflow-x: hidden; */
-min-height: 100vh;
+    overflow-x: hidden;
+    background-image: url("/images/background1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 .container {
     max-width: 1050px;
-    /* min-height: inherit; */
+    min-height: inherit;
 }
 
 .white {
@@ -20,52 +23,60 @@ min-height: 100vh;
 }
 
 .logo-comp:hover {
+
     text-shadow: 0 -1px 4px #FFF, 0px -13px 16px rgba(215, 205, 10, 0.28), 0px -13px 16px rgba(215, 205, 10, 0.28);
 }
 
+.logo-comp img {
+    transition: transform 0.5s ease;
+}
+
+.logo-comp img:hover {
+    transform: rotate(720deg);
+}
 
 .logo-comp h1 {
     margin: 0;
 }
 
 
-.logoHeader {
-    text-decoration: none;
-    color: #912CD6;
+.dayItem .dayName {
+    color: #8ECDDD;
+    font-weight: 400;
 }
 
 .details {
-    border: ridge 2px #29bdde;
- 
+    border: ridge 2px #8ECDDD;
+
 }
 
 .addFavorite:hover {
-    text-shadow: 2px 2px 2px #29bdde;
+    text-shadow: 2px 2px 2px #8ECDDD;
 }
 
 /* scroller */
 /* width */
 ::-webkit-scrollbar {
-    width: 13px;
+    width: 10px;
     background: rgb(255, 255, 255);
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    border-radius: 10px;
+    border-radius: 5px;
     /* border: solid 1px rgb(255, 255, 255); */
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #A435F0;
+    background: #8ECDDD;
     border-radius: 10px;
     border: solid 1px rgb(246, 231, 216);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #912CD6;
+    background: #8ECDDD;
 }
 
 

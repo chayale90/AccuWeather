@@ -9,15 +9,15 @@ export default function Layout() {
 
     //darkMode
     const { darkMode } = useSelector(myStore => myStore.featuresSlice);
-    const mode = useMemo(() => {
+
+    const modeColorText = useMemo(() => {
         if (darkMode)
-            return theme.palette.darkMode.main
         return theme.palette.success.main
+            return theme.palette.darkMode.main
     }, [darkMode]);
 
-
     return (
-        <div style={{ backgroundColor: mode }}>
+        <div style={{  color: modeColorText }}>
             <Header />
             <Outlet />
             {/* <Footer /> */}
