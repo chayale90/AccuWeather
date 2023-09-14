@@ -2,7 +2,7 @@ import React from 'react';
 import DayItem from './dayItem'; // Import the DayItem component
 import LoadingComp from '../../general_comps/loadingComp';
 
-export default function DaysList({ daysArr, headlineWeek }) {
+export default function DaysList({ daysArr }) {
   return (
     <>
       <div className="row g-4 justify-content-center mt-4">
@@ -14,7 +14,6 @@ export default function DaysList({ daysArr, headlineWeek }) {
           <LoadingComp />
         )}
       </div>
-      <h5 className='my-3 text-center'>{headlineWeek}</h5>
     </>
   );
 }

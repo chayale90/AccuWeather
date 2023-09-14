@@ -18,14 +18,14 @@ const AppWeather = () => {
     const dispatch = useDispatch();
 
     //hook
-    const { autocompleteObj, currentWeather, daysArr, headlineWeek, fetchWeatherData, } = useWeatherData();
-
+    const { autocompleteObj, currentWeather, daysArr,headlineWeek, fetchWeatherData, } = useWeatherData();
+   
     //favorites
     const [isLiked, setIsLiked] = useState(false);
     const { arrFavorites } = useSelector((myStore) => myStore.featuresSlice);
 
     //darkMode
-    const { darkMode } = useSelector(myStore => myStore.featuresSlice);
+    const { darkMode,flagSeeMore } = useSelector(myStore => myStore.featuresSlice);
     const modeBackground = useMemo(() => {
         if (darkMode)
             return theme.palette.darkMode.main
@@ -33,6 +33,7 @@ const AppWeather = () => {
     }, [darkMode]);
 
     useEffect(() => {
+        if(!flagSeeMore)
         fetchWeatherData("Tel Aviv");
     }, []);
 
@@ -42,8 +43,12 @@ const AppWeather = () => {
         name: autocompleteObj.LocalizedName,
         temperature: temperatureCelsius,
         description: currentWeather.WeatherText,
-        locationKey: autocompleteObj.Key
+        locationKey: autocompleteObj.Key,
+        currentWeather:currentWeather,
+        autocompleteObj:autocompleteObj,
+        daysArr:daysArr
     }
+   
     const clickOnLike = () => {
         if (!isLiked) {
             dispatch(addNewItem({ val: favoriteObj }))
@@ -88,7 +93,7 @@ const AppWeather = () => {
                 {(autocompleteObj.Key) ?
                     <>
                         <WeatherInfo currentWeather={currentWeather} />
-                        <DaysList daysArr={daysArr} headlineWeek={headlineWeek} />
+                        <DaysList daysArr={daysArr} headlineWeek={headlineWeek}/>
                     </>
                     : <LoadingComp/>
                 }

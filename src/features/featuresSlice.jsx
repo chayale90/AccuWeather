@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// all little things in ui
 const initValue = {
     darkMode: false,
-    arrFavorites: []
-   
+    arrFavorites: [],
+    flagSeeMore: false,
+    currentCityObj: {}
 }
 
 const featuresSlice = createSlice({
@@ -15,6 +15,7 @@ const featuresSlice = createSlice({
         changeDarkMode: (state) => {
             state.darkMode = !(state.darkMode)
         },
+        //Favorite
         addNewItem: (state, action) => {
             let val = false;
             for (let i = 0; i < state.arrFavorites.length; i++) {
@@ -31,9 +32,19 @@ const featuresSlice = createSlice({
                 (item) => item.locationKey != action.payload.val
             );
         },
-
+        //  button SeeMore in favoriteItem
+        changeflagSeeMore: (state, action) => {
+            state.flagSeeMore = action.payload.val;
+        },
+        findCurrentCityObj: (state, action) => {
+            for (let i = 0; i < state.arrFavorites.length; i++) {
+                if (state.arrFavorites[i].name == action.payload.val) {
+                    state.currentCityObj = state.arrFavorites[i]
+                }
+            }
+        }
     }
 })
 
-export const { changeDarkMode, addNewItem, delSingleItem } = featuresSlice.actions;
+export const { changeDarkMode, addNewItem, delSingleItem, changeflagSeeMore,findCurrentCityObj } = featuresSlice.actions;
 export default featuresSlice.reducer;

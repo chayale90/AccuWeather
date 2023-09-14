@@ -1,15 +1,15 @@
 // custom hook 
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { API_KEY } from '../services/apiService';
+import { useSelector } from "react-redux";
 
 const useWeatherData = () => {
   const [autocompleteObj, setAutocompleteObj] = useState({});
   const [currentWeather, setCurrentWeather] = useState({});
   const [daysArr, setDaysArr] = useState([]);
-  const [headlineWeek, setHeadlineWeek] = useState("");
 
   const fetchWeatherData = async (cityName) => {
     try {
@@ -28,18 +28,27 @@ const useWeatherData = () => {
       let url_5days = `https://dataservice.accuweather.com/forecasts/v1/daily/5day/${resp.data[0].Key}?apikey=${API_KEY}`;
       let resp3 = await axios.get(url_5days);
       setDaysArr(resp3.data.DailyForecasts);
-      setHeadlineWeek(resp3.data.Headline.Text);
     } catch (err) {
       console.log("error", err);
       toast.error("Country/city name unknown or the service is down");
     }
   };
 
+  // Redux state and effect
+  const { flagSeeMore, currentCityObj } = useSelector((myStore) => myStore.featuresSlice);
+
+  useMemo(() => {
+    if (flagSeeMore) {
+      setAutocompleteObj(currentCityObj.autocompleteObj)
+      setCurrentWeather(currentCityObj.currentWeather)
+      setDaysArr(currentCityObj.daysArr)
+    }
+  }, [flagSeeMore, currentCityObj])
+
   return {
     autocompleteObj,
     currentWeather,
     daysArr,
-    headlineWeek,
     fetchWeatherData,
   };
 };
