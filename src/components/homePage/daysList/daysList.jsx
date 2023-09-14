@@ -6,6 +6,7 @@ import DayItem from './dayItem';
 
 export default function DaysList({ locationKey }) {
     const [daysArr, setDaysArr] = useState([]);
+    const [headline, setHeadline] = useState("");
 
     useEffect(() => {
         if (locationKey)
@@ -17,6 +18,7 @@ export default function DaysList({ locationKey }) {
             let url_5days = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${API_KEY}`;
             let resp = await axios.get(url_5days);
             setDaysArr(resp.data.DailyForecasts)
+            setHeadline(resp.data.Headline.Text)
             console.log(resp.data.DailyForecasts)
         }
         catch (err) {
@@ -26,20 +28,23 @@ export default function DaysList({ locationKey }) {
     }
 
     return (
-        <div className="row g-4 justify-content-center mt-4">
-            {daysArr.map((item, i) => {
-                return (
-                    <DayItem
-                        key={item.EpochDate}
-                        index={i}
-                        item={item}
-                    />
-                );
-            })}
-            {daysArr.length < 1 &&
-                <h5>Loading...</h5>
-            }
+        <>
+            <div className="row g-4 justify-content-center mt-4">
+                {daysArr.map((item, i) => {
+                    return (
+                        <DayItem
+                            key={item.EpochDate}
+                            index={i}
+                            item={item}
+                        />
+                    );
+                })}
+                {daysArr.length < 1 &&
+                    <h5>Loading...</h5>
+                }
 
-        </div>
+            </div>
+            <h5 className='my-3 text-center'>{headline}</h5>
+        </>
     )
 }

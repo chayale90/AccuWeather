@@ -6,7 +6,7 @@ import Switch from '@mui/material/Switch';
 import { API_KEY } from '../../services/apiService';
 
 
-export default function WeatherInfo({ locationKey }) {
+export default function WeatherInfo({ locationKey,onCurrentWeatherObj  }) {
 
   const [currentWeather, setCurrentWeather] = useState({});
   const [isCelsius, setIsCelsius] = useState(true);
@@ -26,7 +26,10 @@ export default function WeatherInfo({ locationKey }) {
       let url_Current_conditions = `http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${API_KEY}`;
       let resp2 = await axios.get(url_Current_conditions);
       setCurrentWeather(resp2.data[0])
+      //in order to pass this obj to father
+      onCurrentWeatherObj(resp2.data[0]);
       console.log(resp2.data[0])
+      
     }
     catch (err) {
       console.log("error", err);

@@ -22,7 +22,7 @@ const MyFavoritesList = () => {
         {arrFavorites.map((item, i) => {
           return (
             <FavoriteItem
-              key={item.Key}
+              key={item.id}
               index={i}
               item={item}
             />

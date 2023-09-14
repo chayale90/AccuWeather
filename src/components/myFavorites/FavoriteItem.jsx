@@ -1,46 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios";
-import { toast } from "react-toastify"
-// project imports
-import { API_KEY } from '../../services/apiService';
+import React from 'react'
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { delSingleItem } from "../../features/featuresSlice";
 
 export default function FavoriteItem({ item }) {
-    const [currentWeather, setCurrentWeather] = useState({});
-    const locationKey = item.Key;
     const nav = useNavigate()
-    useEffect(() => {
-        if (locationKey) {
-            doApiCurrentWeather()
-        }
-    }, [])
-
-    const doApiCurrentWeather = async () => {
-        try {
-
-            let url_Current_conditions = `http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${API_KEY}`;
-            let resp2 = await axios.get(url_Current_conditions);
-            setCurrentWeather(resp2.data[0])
-            console.log(resp2.data[0])
-        }
-        catch (err) {
-            console.log("error", err);
-            toast.error("City name unknown or the service down")
-        }
-    }
+    const dispatch = useDispatch();
 
     return (
         <div className='favoriteItem col-md-4 '>
             <div className='border h-100 overflow-hidden p-3 text-center'>
-
-                <h3 className='text-primary'>{item.LocalizedName}</h3>
-                {/* <h3>{item.Key}</h3> */}
-                <h4> {currentWeather.Temperature?.Metric?.Value}° {currentWeather.Temperature?.Metric?.Unit} </h4>
-                <h3 className='mt-5'>{currentWeather?.WeatherText}</h3>
+                
+                <button onClick={() => {
+                     dispatch(delSingleItem({ val: item.locationKey })) 
+                }} className='btn btn-danger float-end'>x</button>
+ 
+                <h3 className='text-primary'>{item.name}</h3>
+                <h4>{item.temperature} </h4>
+                <h3 className='mt-5'>{item?.description}</h3>
                 <button
-                    onClick={() => { nav("/"+item?.LocalizedName) }}
-                    className='btn btn-light'>See More
-                    </button>
+                    onClick={() => { nav("/" + item.name) }}
+                    className='btn btn-light'>See More details
+                </button>
             </div>
         </div>
 

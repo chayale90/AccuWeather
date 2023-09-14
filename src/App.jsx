@@ -6,7 +6,7 @@ import featuresSlice from "./features/featuresSlice"
 
 export const myStore = configureStore({
   reducer: {
-    //  for darkMode
+    //  for darkMode and favorites
     featuresSlice,
   }
 })

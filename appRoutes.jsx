@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import HomePage from './src/components/homePage/homePage';
 import Layout from './src/layout/layout';
 import MyFavoritesList from './src/components/myFavorites/myFavoritesList';
+import NotFound from './src/components/general_comps/notFound';
 
 
 export default function AppRoutes() {
@@ -17,7 +18,7 @@ export default function AppRoutes() {
 
                     <Route path='/' element={<HomePage />} />
                     <Route path='/favorites' element={<MyFavoritesList/>} />
-
+                    <Route path='*' element={<NotFound/>} />
                 </Route>
                 
             </Routes>
