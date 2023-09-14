@@ -1,41 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios";
-import { toast } from "react-toastify"
+import React, { useState } from 'react'
 import Switch from '@mui/material/Switch';
-// project imports
-import { API_KEY } from '../../services/apiService';
 
 
-export default function WeatherInfo({ locationKey,onCurrentWeatherObj  }) {
-
-  const [currentWeather, setCurrentWeather] = useState({});
+export default function WeatherInfo({ currentWeather }) {
   const [isCelsius, setIsCelsius] = useState(true);
-
-  console.log(locationKey)
-  console.log(currentWeather)
-  // console.log({ isCelsius });
-
-  useEffect(() => {
-    if (locationKey) {
-      doApiCurrentWeather()
-    }
-  }, [locationKey])
-
-  const doApiCurrentWeather = async () => {
-    try {
-      let url_Current_conditions = `http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${API_KEY}`;
-      let resp2 = await axios.get(url_Current_conditions);
-      setCurrentWeather(resp2.data[0])
-      //in order to pass this obj to father
-      onCurrentWeatherObj(resp2.data[0]);
-      console.log(resp2.data[0])
-      
-    }
-    catch (err) {
-      console.log("error", err);
-      toast.error("City name unknown or the service down")
-    }
-  }
 
   const toggleUnit = () => {
     setIsCelsius(!isCelsius);

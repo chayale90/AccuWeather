@@ -16,7 +16,7 @@ export default function AppRoutes() {
             <Routes>
                 <Route path='/' element={<Layout/>} >
 
-                    <Route path='/' element={<HomePage />} />
+                    <Route index element={<HomePage />} />
                     <Route path='/favorites' element={<MyFavoritesList/>} />
                     <Route path='*' element={<NotFound/>} />
                 </Route>

@@ -8,7 +8,6 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { IconButton } from '@mui/material';
 // project imports
 import WeatherInput from "./weatherInput";
-import GeneralInfo from "./generalInfo";
 import WeatherInfo from "./WeatherInfo";
 import { API_KEY } from '../../services/apiService';
 import DaysList from "./daysList/daysList";
@@ -17,16 +16,15 @@ import { addNewItem } from "../../features/featuresSlice";
 
 
 const AppWeather = () => {
+    const dispatch = useDispatch();
+
     const [autocompleteObj, setAutocompleteObj] = useState({});
     const [locationKey, setLocationKey] = useState("");
+    const [currentWeather, setCurrentWeather] = useState({});
 
     //favorites
     const [isLiked, setIsLiked] = useState(false);
-    const dispatch = useDispatch();
     const { arrFavorites } = useSelector((myStore) => myStore.featuresSlice);
-    console.log(arrFavorites);
-
-    const [currentWeatherObj, setCurrentWeatherObj] = useState({});
 
     //darkMode
     const { darkMode } = useSelector(myStore => myStore.featuresSlice);
@@ -36,12 +34,9 @@ const AppWeather = () => {
         return theme.palette.success.main
     }, [darkMode]);
 
-
     useEffect(() => {
-            doApi('Tel Aviv');
+        doApi('Tel Aviv');
     }, []);
-
-
 
     const doApi = async (cityName) => {
         try {
@@ -52,9 +47,11 @@ const AppWeather = () => {
                 return;
             }
             setAutocompleteObj(resp.data[0]);
-            console.log(resp.data[0]);
-            // console.log({ key: resp.data[0].Key });
             setLocationKey(resp.data[0].Key)
+            let url_Current_conditions = `http://dataservice.accuweather.com/currentconditions/v1/${resp.data[0].Key}?apikey=${API_KEY}`;
+            let resp2 = await axios.get(url_Current_conditions);
+            setCurrentWeather(resp2.data[0])
+
         }
         catch (err) {
             console.log("error", err);
@@ -62,17 +59,12 @@ const AppWeather = () => {
         }
     }
 
-    // Callback function to receive and handle currentWeather data
-    const handleCurrentWeather = (data) => {
-        setCurrentWeatherObj(data);
-    };
-
-    const temperatureCelsius = (currentWeatherObj.Temperature?.Metric?.Value) + "°" + (currentWeatherObj.Temperature?.Metric?.Unit);
+    const temperatureCelsius = (currentWeather.Temperature?.Metric?.Value) + "°" + (currentWeather.Temperature?.Metric?.Unit);
     const favoriteObj = {
         id: Date.now(),
         name: autocompleteObj.LocalizedName,
         temperature: temperatureCelsius,
-        description: currentWeatherObj.WeatherText,
+        description: currentWeather.WeatherText,
         locationKey: locationKey
     }
     const clickOnLike = () => {
@@ -80,7 +72,6 @@ const AppWeather = () => {
             dispatch(addNewItem({ val: favoriteObj }))
             setIsLiked(!isLiked);
         }
-        console.log(favoriteObj);
     }
 
     //check if the weather obj exist in favorite array and update the 'isLiked' state 
@@ -102,8 +93,7 @@ const AppWeather = () => {
             <div style={{ backgroundColor: modeBackground, minHeight: "400px" }} className="details p-4">
 
                 <div className='d-flex justify-content-between'>
-                    <GeneralInfo autocompleteObj={autocompleteObj} />
-
+                    <h1 className='display-6'>{autocompleteObj.LocalizedName}</h1>
                     <div className="d-flex align-items-center">
                         <h6 className="addFavorite m-0">Add to favorite</h6>
                         <IconButton onClick={clickOnLike}
@@ -120,7 +110,7 @@ const AppWeather = () => {
 
                 {(locationKey) ?
                     <>
-                        <WeatherInfo locationKey={locationKey} onCurrentWeatherObj={handleCurrentWeather} />
+                    <WeatherInfo currentWeather={currentWeather} />
                         <DaysList locationKey={locationKey} />
                     </>
                     : <div className="display-4">Loading...</div>
