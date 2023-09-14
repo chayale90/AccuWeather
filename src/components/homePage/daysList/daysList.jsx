@@ -1,5 +1,5 @@
 import React from 'react';
-import DayItem from './DayItem'; // Import the DayItem component
+import DayItem from './dayItem'; // Import the DayItem component
 import LoadingComp from '../../general_comps/loadingComp';
 
 export default function DaysList({ daysArr, headlineWeek }) {
