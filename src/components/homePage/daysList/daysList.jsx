@@ -1,31 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios";
+import React from 'react'
 // project imports
-import { API_KEY } from '../../../services/apiService';
 import DayItem from './dayItem';
 
-export default function DaysList({ locationKey }) {
-    const [daysArr, setDaysArr] = useState([]);
-    const [headline, setHeadline] = useState("");
-
-    useEffect(() => {
-        if (locationKey)
-            doApiDaysList()
-    }, [locationKey])
-
-    const doApiDaysList = async () => {
-        try {
-            let url_5days = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${API_KEY}`;
-            let resp = await axios.get(url_5days);
-            setDaysArr(resp.data.DailyForecasts)
-            setHeadline(resp.data.Headline.Text)
-            console.log(resp.data.DailyForecasts)
-        }
-        catch (err) {
-            console.log("error", err);
-            toast.error("City name unknown or the service down")
-        }
-    }
+export default function DaysList({ daysArr,headlineWeek }) {
 
     return (
         <>
@@ -44,7 +21,7 @@ export default function DaysList({ locationKey }) {
                 }
 
             </div>
-            <h5 className='my-3 text-center'>{headline}</h5>
+            <h5 className='my-3 text-center'>{headlineWeek}</h5>
         </>
     )
 }

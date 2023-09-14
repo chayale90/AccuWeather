@@ -17,10 +17,10 @@ import { addNewItem } from "../../features/featuresSlice";
 
 const AppWeather = () => {
     const dispatch = useDispatch();
-
     const [autocompleteObj, setAutocompleteObj] = useState({});
-    const [locationKey, setLocationKey] = useState("");
     const [currentWeather, setCurrentWeather] = useState({});
+    const [daysArr, setDaysArr] = useState([]);
+    const [headlineWeek, setHeadlineWeek] = useState("");
 
     //favorites
     const [isLiked, setIsLiked] = useState(false);
@@ -47,10 +47,15 @@ const AppWeather = () => {
                 return;
             }
             setAutocompleteObj(resp.data[0]);
-            setLocationKey(resp.data[0].Key)
+            
             let url_Current_conditions = `http://dataservice.accuweather.com/currentconditions/v1/${resp.data[0].Key}?apikey=${API_KEY}`;
             let resp2 = await axios.get(url_Current_conditions);
             setCurrentWeather(resp2.data[0])
+            
+            let url_5days = `http://dataservice.accuweather.com/forecasts/v1/daily/5day/${resp.data[0].Key}?apikey=${API_KEY}`;
+            let resp3 = await axios.get(url_5days);
+            setDaysArr(resp3.data.DailyForecasts)
+            setHeadlineWeek(resp3.data.Headline.Text)
 
         }
         catch (err) {
@@ -65,7 +70,7 @@ const AppWeather = () => {
         name: autocompleteObj.LocalizedName,
         temperature: temperatureCelsius,
         description: currentWeather.WeatherText,
-        locationKey: locationKey
+        locationKey: autocompleteObj.Key
     }
     const clickOnLike = () => {
         if (!isLiked) {
@@ -108,13 +113,14 @@ const AppWeather = () => {
                     </div>
                 </div>
 
-                {(locationKey) ?
+                {(autocompleteObj.Key) ?
                     <>
-                    <WeatherInfo currentWeather={currentWeather} />
-                        <DaysList locationKey={locationKey} />
+                        <WeatherInfo currentWeather={currentWeather} />
+                        <DaysList daysArr={daysArr} headlineWeek={headlineWeek} />
                     </>
                     : <div className="display-4">Loading...</div>
                 }
+
             </div>
         </div>
     )
