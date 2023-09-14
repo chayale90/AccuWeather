@@ -14,13 +14,13 @@ export default function AppRoutes() {
     return (
         <Router>
             <Routes>
-                <Route path='/' element={<Layout/>} >
+                <Route path='/' element={<Layout />} >
 
                     <Route index element={<HomePage />} />
-                    <Route path='/favorites' element={<MyFavoritesList/>} />
-                    <Route path='*' element={<NotFound/>} />
+                    <Route path='/favorites' element={<MyFavoritesList />} />
                 </Route>
-                
+                <Route path='*' element={<NotFound />} />
+
             </Routes>
             <ToastContainer position="top-left" theme="colored" />
 

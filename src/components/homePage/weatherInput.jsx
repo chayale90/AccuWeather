@@ -10,7 +10,6 @@ const WeatherInput = ({ doApi }) => {
                 onKeyDown={(e) => {
                     if (e.key == "Enter") {
                         doApi(inputRef.current.value);
-                        console.log(inputRef.current.value);
                     }
                 }}
                 ref={inputRef} type="text"
@@ -20,7 +19,6 @@ const WeatherInput = ({ doApi }) => {
 
             <button onClick={() => {
                 doApi(inputRef.current.value);
-                // console.log(inputRef.current.value);
             }}
                 className='btn btn-primary ms-2'>Search
             </button>
