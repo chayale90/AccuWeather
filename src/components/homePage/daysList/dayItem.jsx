@@ -9,7 +9,7 @@ export default function DayItem({ index, item }) {
   return (
     <div className='dayItem col-md-4'>
       {item.Day ? (
-        <div className='border h-100 overflow-hidden p-2 text-center'>
+        <div className='border rounded h-100 overflow-hidden p-2 text-center'>
           <h4 className='dayName'>{days_of_week[index]}</h4>
           <div className='mb-4'>
             <div className='day'>

@@ -19,7 +19,7 @@ body {
 .logo-comp {
     display: flex;
     align-items: center;
-    text-shadow: 0 -1px 4px #FFF, 2px 2px 2px rgba(14, 190, 206, 0), 0px -13px 16px #0EBECE;
+    text-shadow: 0 -1px 4px #c2afaf, 2px 2px 2px rgba(14, 190, 206, 0), 0px -13px 16px #0EBECE;
 }
 
 .logo-comp:hover {
@@ -47,7 +47,6 @@ body {
 
 .details {
     border: ridge 2px #8ECDDD;
-
 }
 
 .addFavorite:hover {

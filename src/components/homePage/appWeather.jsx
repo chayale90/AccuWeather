@@ -72,7 +72,7 @@ const AppWeather = () => {
     return (
         <div>
             <WeatherInput doApi={fetchWeatherData} />
-            <div style={{ backgroundColor: modeBackground, minHeight: "400px" }} className="details p-4">
+            <div style={{ backgroundColor: modeBackground, minHeight: "400px" }} className="details p-4 rounded">
 
                 <div className='d-flex justify-content-between'>
                     <h1 className='display-6'>{autocompleteObj.LocalizedName}</h1>

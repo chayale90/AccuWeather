@@ -7,7 +7,6 @@ import { changeflagSeeMore,findCurrentCityObj } from "../../features/featuresSli
 export default function FavoriteItem({ item }) {
     const nav = useNavigate()
     const dispatch = useDispatch();
-    const { flagSeeMore,currentCityObj } = useSelector((myStore) => myStore.featuresSlice);
     
     const onClickSeeMore = () => {
         nav("/")
