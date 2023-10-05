@@ -79,6 +79,19 @@ body {
 }
 
 
+
+/* icon nagishLi design*/
+#NagishLiTrigger {
+    bottom: 20px;
+    /* top:10px; */
+    right: none;
+    left: 5px;
+    transform: scale(0.7, 0.7);
+    filter: grayscale(100%);
+}
+
+
+
 @media (max-width:991px) {
     .container {
         max-width: 700px;
