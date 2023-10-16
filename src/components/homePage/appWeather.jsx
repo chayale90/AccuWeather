@@ -62,7 +62,6 @@ const AppWeather = () => {
         }
     }
 
-    console.log(arrFavorites);
     //check if the weather obj exist in favorite array and update the 'isLiked' state 
     useMemo(() => {
         let isCurrentlyLiked = false;
