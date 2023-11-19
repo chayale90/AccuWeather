@@ -8,9 +8,9 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import WeatherInput from "./weatherInput";
 import WeatherInfo from "./WeatherInfo";
 import DaysList from "./daysList/daysList";
-import { theme } from '../../services/theme'
-import { addNewItem } from "../../features/featuresSlice";
-import useWeatherData from "../../hooks/useFetchWeather";
+import { theme } from '@/services/theme'
+import { addNewItem } from "@/features/featuresSlice";
+import useWeatherData from "@/hooks/useFetchWeather";
 import LoadingComp from "../general_comps/loadingComp";
 
 

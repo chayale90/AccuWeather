@@ -2,7 +2,7 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import FavoriteItem from "./FavoriteItem";
-import { theme } from '../../services/theme'
+import { theme } from '@/services/theme'
 
 const MyFavoritesList = () => {
   const { arrFavorites } = useSelector((myStore) => myStore.featuresSlice);

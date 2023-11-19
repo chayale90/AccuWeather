@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { delSingleItem } from "../../features/featuresSlice";
-import { changeflagSeeMore,findCurrentCityObj } from "../../features/featuresSlice";
+import { delSingleItem } from "@/features/featuresSlice";
+import { changeflagSeeMore,findCurrentCityObj } from "@/features/featuresSlice";
 
 export default function FavoriteItem({ item }) {
     const nav = useNavigate()
