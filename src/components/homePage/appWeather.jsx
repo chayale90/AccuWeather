@@ -5,17 +5,18 @@ import { IconButton } from '@mui/material';
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 // project imports
-import WeatherInput from "./weatherInput";
-import WeatherInfo from "./WeatherInfo";
-import DaysList from "./daysList/daysList";
 import { theme } from '@/services/theme'
 import { addNewItem } from "@/features/featuresSlice";
 import useWeatherData from "@/hooks/useFetchWeather";
+import WeatherInput from "./weatherInput";
+import WeatherInfo from "./WeatherInfo";
+import DaysList from "./daysList/daysList";
 import LoadingComp from "../general_comps/loadingComp";
 
 
 const AppWeather = () => {
     const dispatch = useDispatch();
+    const [isCelsius, setIsCelsius] = useState(true);
 
     //hook
     const {
@@ -98,8 +99,8 @@ const AppWeather = () => {
 
                 {(autocompleteObj.Key) ?
                     <>
-                        <WeatherInfo currentWeather={currentWeather} />
-                        <DaysList daysArr={daysArr} headlineWeek={headlineWeek} />
+                        <WeatherInfo currentWeather={currentWeather} isCelsius={isCelsius} setIsCelsius={setIsCelsius} />
+                        <DaysList daysArr={daysArr} headlineWeek={headlineWeek} isCelsius={isCelsius}  />
                     </>
                     : <LoadingComp />
                 }
