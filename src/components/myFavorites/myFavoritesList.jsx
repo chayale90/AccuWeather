@@ -18,7 +18,7 @@ const MyFavoritesList = () => {
   return (
 
     <div className="container rounded" style={{ backgroundColor: modeBackground, minHeight: "400px" }}>
-      <div className="row g-4 justify-content-center mt-5 ">
+      <div className="row g-4 justify-content-center mt-5 p-3">
         {arrFavorites.map((item, i) => {
           return (
             <FavoriteItem

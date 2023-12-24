@@ -1,0 +1,32 @@
+.favoriteItem {
+  border: rgb(20, 11, 110) 2px solid;
+  border-radius: 20px;
+}
+
+.seeMoreBtn {
+  background: rgb(106, 106, 237);
+  border-radius: 30px;
+  border: 1px solid rgb(33, 5, 87);
+  padding: 5px 15px;
+  color: aliceblue;
+}
+.seeMoreBtn:hover {
+  background: rgb(80, 80, 237);
+  border-radius: 30px;
+  border: 1px solid rgb(33, 5, 87);
+  padding: 5px 15px;
+  color: aliceblue;
+}
+
+.btnX{
+    background: rgba(255, 0, 0, 0.759);
+    color: white;
+    border-radius: 50%;
+    padding: 5px 13px;
+    border: 1px solid rgb(33, 5, 87);
+}
+
+.btnX:hover{
+    background: rgba(255, 0, 0, 0.929);
+    color: white;
+}

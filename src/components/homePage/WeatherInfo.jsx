@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Switch from '@mui/material/Switch';
-
+import "./weatherInfo.css"
 
 export default function WeatherInfo({ currentWeather, isCelsius, setIsCelsius }) {
 
@@ -23,7 +23,7 @@ export default function WeatherInfo({ currentWeather, isCelsius, setIsCelsius })
         inputProps={{ 'aria-label': 'toggle temperature unit' }}
       />
 
-      <h2 className='text-center display-5 text-primary'>{currentWeather?.WeatherText}</h2>
+      <h2 className='text-center display-5 main-header'>{currentWeather?.WeatherText}</h2>
 
     </div >
   )

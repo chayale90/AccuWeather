@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-
+import "./weatherInput.css"
 const WeatherInput = ({ doApi }) => {
 
     const inputRef = useRef();
@@ -17,10 +17,12 @@ const WeatherInput = ({ doApi }) => {
                 placeholder='Search for city/town...'
             />
 
-            <button onClick={() => {
+            <button
+            className="btnSearch ms-2"
+            onClick={() => {
                 doApi(inputRef.current.value);
             }}
-                className='btn btn-primary ms-2'>Search
+            >Search
             </button>
 
         </div>
